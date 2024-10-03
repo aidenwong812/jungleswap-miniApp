@@ -70,7 +70,6 @@ async fn message_handler(bot: Bot, msg: Message, me: Me) -> ResponseResult<()> {
 }
 
 fn get_web_app_keyboard(chat_id: ChatId) -> InlineKeyboardMarkup {
-    println!("https://hyperloop-nine.vercel.app/?id={chat_id}");
     let web_app = WebAppInfo {
         url: format!("https://hyperloop-nine.vercel.app/?id={chat_id}").parse().unwrap(),
     };

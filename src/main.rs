@@ -33,14 +33,14 @@ enum Command {
     // Help,
     #[command(description = "Send the web app")]
     Start,
-}async fn answer(bot: Bot, msg: Message, cmd: Command, me: Me) -> ResponseResult<()> {
+}async fn answer(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> {
     match cmd {
         // Command::Help => {
         //     bot.send_message(msg.chat.id, Command::descriptions().to_string())
         //         .await?
         // }
         Command::Start => {
-            let keyboard = get_web_app_keyboard(msg.chat.id, me.username());
+            let keyboard = get_web_app_keyboard(msg.chat.id, msg.chat.username().expect("REASON"));
             bot.send_message(msg.chat.id, "Welcome to HyperLoop! 🎉
             
 HyperLoop is the easiest and safest way to swap and bridge coins and tokens - account-free, worry-free, faster than light.
@@ -60,7 +60,7 @@ async fn message_handler(bot: Bot, msg: Message, me: Me) -> ResponseResult<()> {
             .await?;
     } else if let Some(text) = msg.text() {
         if let Ok(cmd) = Command::parse(text, me.username()) {
-            answer(bot, msg, cmd, me).await?;
+            answer(bot, msg, cmd).await?;
         }
     }
 
@@ -68,10 +68,11 @@ async fn message_handler(bot: Bot, msg: Message, me: Me) -> ResponseResult<()> {
 }
 
 fn get_web_app_keyboard(chat_id: ChatId, user_name: &str) -> InlineKeyboardMarkup {
+    // let user_name = me.username.as_deref().unwrap_or(&me.first_name);
     let web_app = WebAppInfo {
         url: format!("https://hyperloop-nine.vercel.app/?id={chat_id}&username={user_name}").parse().unwrap(),
     };
-
+    println!("{:?}", format!("https://hyperloop-nine.vercel.app/?id={chat_id}&username={user_name}"));
     InlineKeyboardMarkup::new(vec![vec![
         InlineKeyboardButton::new("Open HyperLoop", InlineKeyboardButtonKind::WebApp(web_app))
     ]])

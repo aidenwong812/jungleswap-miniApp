@@ -1,7 +1,7 @@
 {
 	"scripts": {
 		"start": "cargo run --release",
-		"up": "pm2 start target/release/HYPERLOOP-MINIAPP --name 'hyperloop' --watch",
+		"up": "pm2 start target/release/JUNGLE-SWAP --name 'jungleswap' --watch",
 		"down": "pm2 stop 0 --watch && pm2 delete 0"
 	}
 }

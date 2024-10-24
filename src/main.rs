@@ -40,10 +40,10 @@ enum Command {
         //         .await?
         // }
         Command::Start => {
-            let keyboard = get_web_app_keyboard(msg.chat.id, msg.chat.username().expect("REASON"));
-            bot.send_message(msg.chat.id, "Welcome to HyperLoop! 🎉
+            let keyboard = get_web_app_keyboard();
+            bot.send_message(msg.chat.id, "Welcome to JungleSwap! 🎉
             
-HyperLoop is the easiest and safest way to swap and bridge coins and tokens - account-free, worry-free, faster than light.
+JungleSwap is the easiest and safest way to swap and bridge coins and tokens - account-free, worry-free, faster than light.
 
 Your first bridge or swap is just a few taps away all in our intuitive easy to use bot – with each swap you will earn points based on the size and frequency of your swaps.")
                 .reply_markup(keyboard)
@@ -67,13 +67,13 @@ async fn message_handler(bot: Bot, msg: Message, me: Me) -> ResponseResult<()> {
     Ok(())
 }
 
-fn get_web_app_keyboard(chat_id: ChatId, user_name: &str) -> InlineKeyboardMarkup {
+fn get_web_app_keyboard() -> InlineKeyboardMarkup {
     // let user_name = me.username.as_deref().unwrap_or(&me.first_name);
     let web_app = WebAppInfo {
-        url: format!("https://hyperloop-nine.vercel.app/?id={chat_id}&username={user_name}").parse().unwrap(),
+        url: format!("https://jungleswap.vercel.app/").parse().unwrap(),
     };
-    println!("{:?}", format!("https://hyperloop-nine.vercel.app/?id={chat_id}&username={user_name}"));
+    println!("{:?}", format!("https://jungleswap.vercel.app/"));
     InlineKeyboardMarkup::new(vec![vec![
-        InlineKeyboardButton::new("Open HyperLoop", InlineKeyboardButtonKind::WebApp(web_app))
+        InlineKeyboardButton::new("Jungle Swap", InlineKeyboardButtonKind::WebApp(web_app))
     ]])
 }

@@ -72,7 +72,6 @@ fn get_web_app_keyboard() -> InlineKeyboardMarkup {
     let web_app = WebAppInfo {
         url: format!("https://jungleswap.vercel.app/").parse().unwrap(),
     };
-    println!("{:?}", format!("https://jungleswap.vercel.app/"));
     InlineKeyboardMarkup::new(vec![vec![
         InlineKeyboardButton::new("Jungle Swap", InlineKeyboardButtonKind::WebApp(web_app))
     ]])
